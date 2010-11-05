@@ -13,6 +13,9 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+let g:SuperTabCrMapping = 0
+
+
 " Remove the nasty windows endline
 map MM :%s/\r/\r/g
 
