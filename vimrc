@@ -24,7 +24,7 @@ map \d :<C-u> call SetDateComment()<CR>
 
 " Syntax and colorscheme  
 syntax on
-colorscheme whamoocolor 
+colorscheme whamoocolor
 
 " Set map leader
 let mapleader = ","
