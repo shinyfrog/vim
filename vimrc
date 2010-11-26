@@ -22,6 +22,7 @@ map MM :%s/\r/\r/g
 " Set Modification date by me
 map \d :<C-u> call SetDateComment()<CR>
 
+
 " Syntax and colorscheme  
 syntax on
 colorscheme whamoocolor
@@ -145,6 +146,12 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType python set ft=python.django " For SnipMate
 autocmd FileType html set ft=htmldjango.html " For SnipMate
 autocmd FileType htmldjango set ft=htmldjango.html " For SnipMate
+
+
+" Folding 
+autocmd FileType css set foldmethod=manual
+autocmd FileType css map \z zf/-----------------------<CR>
+
 
 " NERD_tree config
 let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
@@ -325,8 +332,8 @@ endfun
 
 ",v brings up my .vimrc
 ",V reloads it -- making all changes active (have to save first)
-map ,v :sp .vimrc<CR><C-W>_
-map <silent> ,V :source .vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+map ,v :sp ~/.vimrc<CR><C-W>_
+map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 
 " The following beast is something i didn't write... it will return the
