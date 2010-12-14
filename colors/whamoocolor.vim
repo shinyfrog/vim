@@ -50,6 +50,14 @@ hi FoldColumn        guifg=#87ceff guibg=#2f4f4f
 hi Pmenu guibg=#333333
 hi PmenuSel guibg=#555555 guifg=#ffffff
 
+
+"Diff
+hi DiffAdd guibg=#3b7241
+hi DiffDelete guifg=#87ceff guibg=#933e3e
+hi DiffText guifg=#87ceff guibg=#233a5f
+hi DiffChange guifg=#87ceff guibg=#546b91
+
+
 " Console
 "highlight Normal     ctermfg=LightGrey	ctermbg=Black
 "highlight Search     ctermfg=Black	ctermbg=Red	cterm=NONE
