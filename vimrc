@@ -124,11 +124,9 @@ set expandtab
 set number " Set line number 
 
 " Backup file and swapfiles
-set dir=~/.vimSwap
+set noswapfile
 set nobackup
-"set backupdir=~/.vim/backup
-"set directory=~/.vim/tmp
-"
+set nowritebackup
 
 " % matching also on if, else, ifelse, etc..
 runtime macros/matchit.vim
