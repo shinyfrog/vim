@@ -265,7 +265,6 @@ if has('gui_running')
     set anti
     set gfn=Monaco:h12
     colorscheme whamoocolor  
-    hi User1 guifg=#009999 guibg=#00487D 
 
     " Removing toolbar
     set guioptions-=T
