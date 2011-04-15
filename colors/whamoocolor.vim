@@ -45,7 +45,7 @@ highlight Identifier guifg=#35eeff
 "highlight Function   guifg=#20b2aa 
 highlight Function   guifg=#95db66
 highlight PreProc    guifg=#b0c4de
-highlight LineNr     guifg=#90f020
+highlight LineNr     guifg=#517d7d
 highlight NonText    guifg=#3cb371
 highlight ModeMsg    guifg=#3cb371
 highlight MoreMsg    guifg=#cd950c
@@ -53,7 +53,6 @@ highlight Question   guifg=#cd950c
 highlight Title      guifg=#95db66
  
 highlight Special    guifg=Orange
-"highlight StatusLine guifg=Blue 	guibg=Darkgray  gui=NONE
 highlight Directory  guifg=#35eeff
 
 " Tab color
@@ -62,13 +61,18 @@ hi TabLineSel guibg=#009999 gui=NONE
 hi TabLineFill guibg=#00487D guifg=#00487D 
 
 " status bar
-"highlight StatusLine guifg=#000000 guibg=#00487D 
-hi User1 guifg=#009999 guibg=#00487D 
+hi StatusLineNC guifg=#517d7d guibg=#adcab9 
+hi StatusLine  guifg=#517d7d guibg=#adcab9 
+
+" Splits
+hi VertSplit guifg=#517d7d guibg=#adcab9 
+
+"hi User1 guifg=#009999 guibg=#00487D 
 
 
 
 " Cursor Line
-hi cursorline guibg=#00487D
+hi cursorline guibg=#274440
 
 " Folding color
 hi Folded	     guifg=#87ceff guibg=#2C664F

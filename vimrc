@@ -109,7 +109,7 @@ set vb t_vb=       " Set visualbell not orrible beep
 
 " status bar setting
 set laststatus=2   " Always show the status line 
-set statusline=%1*%y\ %t%=\ %l-%c\ [%n]\ %p%\%
+set statusline=\ \%y\ %t%=\ %l-%c\ [%n]\ %p%\%\ \ 
 
 
 filetype on            " enables filetype detection
@@ -268,6 +268,14 @@ if has('gui_running')
 
     " Removing toolbar
     set guioptions-=T
+
+    " Removing right scrollbar
+    set guioptions-=r
+    set guioptions-=R
+
+    " Removing left scrollbar
+    set guioptions-=l
+    set guioptions-=L
 endif
 
 " My Function "
