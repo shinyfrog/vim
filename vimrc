@@ -27,6 +27,9 @@ map \d :<C-u> call SetDateComment()<CR>
 syntax on
 colorscheme whamoocolor
 
+set t_Co=256
+
+
 " Set map leader
 let mapleader = ","
 let g:mapleader = ","
@@ -38,8 +41,9 @@ nnoremap ` '
 " mapping - to search
 nmap - /
 
-" toggling search highlight with ,n
+" remove search highlight with ,n
 nmap <silent> <leader>n :silent :nohlsearch<CR>
+
 " showing trailing white space
 set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
@@ -73,6 +77,8 @@ set cursorline     " I Want to see where i'm!!
 set wildmenu       " Set enhanced comand menu' completion
 set history=1000   " Vim now will remember 1000 commands
 set autochdir      " automatically switch working path to the edited file
+set splitbelow     " Split windows at bottom
+set splitright     " Split the window on the right
 set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,resize
 
 
