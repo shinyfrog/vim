@@ -172,6 +172,9 @@ autocmd BufNewFile *.sh call append(0, "#!/bin/bash")
 au! BufRead,BufNewFile *.mkd   setfiletype mkd
 au! BufRead,BufNewFile *.mk   setfiletype mkd
 
+" SCSS
+au BufRead,BufNewFile *.scss set filetype=scss
+
 " (GUI) Live line reordering 
 nnoremap <silent> <C-A-Up> :move .-2<CR>
 nnoremap <silent> <C-A-Down> :move .+1<CR>
