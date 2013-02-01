@@ -70,7 +70,7 @@ set autochdir      " automatically switch working path to the edited file
 set splitbelow     " Split windows at bottom
 set splitright     " Split the window on the right
 set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,resize
-
+set scrolloff=1    " Always show at least 1 row belowe/about the cursor
 
 " No blink cursor
 set guicursor=a:blinkon0
@@ -313,8 +313,6 @@ let g:neocomplcache_enable_auto_select = 1
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
-" SuperTab like snippets behavior.
-" imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<CR>"
 imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
