@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: snippet_target.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 02 Nov 2012.
+" Last Modified: 13 Dec 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -70,11 +70,11 @@ function! s:source.gather_candidates(args, context) "{{{
   return list
 endfunction "}}}
 
-" Actions"{{{
+" Actions "{{{
 let s:source.action_table.select = {
       \ 'description' : 'select targetted snippet',
       \ }
-function! s:source.action_table.select.func(candidate)"{{{
+function! s:source.action_table.select.func(candidate) "{{{
   let context = a:candidate.source__context
   if bufnr('%') != context.source__bufnr ||
         \ line('.') != context.source__linenr
@@ -82,23 +82,7 @@ function! s:source.action_table.select.func(candidate)"{{{
     return
   endif
 
-  let neosnippet = neosnippet#get_current_neosnippet()
-
-  let neosnippet.target = substitute(
-        \ neosnippet#get_selected_text(visualmode(), 1), '\n$', '', '')
-  let base_indent = matchstr(neosnippet.target, '^\s*')
-
-  " Delete base_indent.
-  let neosnippet.target = substitute(neosnippet.target,
-        \'^' . base_indent, '', 'g')
-
-  call neosnippet#substitute_selected_text(visualmode(),
-        \ base_indent)
-
-  call cursor(0, getpos("'<")[2])
-
-  call neosnippet#expand(neosnippet#util#get_cur_text(),
-        \ col('.'), a:candidate.source__trigger)
+  call neosnippet#expand_target_trigger(a:candidate.source__trigger)
 endfunction"}}}
 "}}}
 
@@ -121,7 +105,7 @@ function! unite#sources#snippet_target#start() "{{{
         \ { 'buffer_name' : 'snippet/target' })
 endfunction "}}}
 
-function! s:get_keyword_pos(cur_text)"{{{
+function! s:get_keyword_pos(cur_text) "{{{
   let cur_keyword_pos = match(a:cur_text, '\S\+$')
   if cur_keyword_pos < 0
     " Empty string.

@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neosnippet.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 03 Nov 2012.
+" Last Modified: 20 Jan 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -34,10 +34,10 @@ endif
 let s:save_cpo = &cpo
 set cpo&vim
 
-" Obsolute options check."{{{
+" Obsolute options check. "{{{
 "}}}
 
-" Plugin key-mappings."{{{
+" Plugin key-mappings. "{{{
 inoremap <silent><expr> <Plug>(neosnippet_expand_or_jump)
       \ neosnippet#expand_or_jump_impl()
 inoremap <silent><expr> <Plug>(neosnippet_jump_or_expand)
@@ -88,18 +88,12 @@ inoremap <expr><silent> <Plug>(neosnippet_start_unite_snippet)
       \ unite#sources#snippet#start_complete()
 "}}}
 
-augroup neosnippet"{{{
-  autocmd!
-  " Set caching event.
-  autocmd FileType * call neosnippet#caching()
-  " Recaching events
-  autocmd BufWritePost *.snip,*.snippets
-        \ call neosnippet#recaching()
-  autocmd BufEnter *
-        \ call neosnippet#clear_select_mode_mappings()
+augroup neosnippet "{{{
+    autocmd CursorHold,CursorMovedI
+          \ * call neosnippet#_lazy_initialize()
 augroup END"}}}
 
-" Commands."{{{
+" Commands. "{{{
 command! -nargs=? -complete=customlist,neosnippet#edit_complete
       \ NeoSnippetEdit
       \ call neosnippet#edit_snippets(<q-args>)

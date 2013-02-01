@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: snippets_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 04 Nov 2012.
+" Last Modified: 10 Nov 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@ let s:source = {
       \ 'kind' : 'complfunc',
       \}
 
-function! s:source.initialize()"{{{
+function! s:source.initialize() "{{{
   " Initialize.
   call neocomplcache#set_dictionary_helper(
         \ g:neocomplcache_source_rank, 'snippets_complete', 8)
@@ -40,7 +40,7 @@ function! s:source.initialize()"{{{
         \ g:neocomplcache_auto_completion_start_length)
 endfunction"}}}
 
-function! s:source.get_keyword_pos(cur_text)"{{{
+function! s:source.get_keyword_pos(cur_text) "{{{
   let cur_word = matchstr(a:cur_text, '\w\+$')
   let word_candidates = neocomplcache#keyword_filter(
         \ filter(values(neosnippet#get_snippets()),
@@ -52,7 +52,7 @@ function! s:source.get_keyword_pos(cur_text)"{{{
   return match(a:cur_text, '\S\+$')
 endfunction"}}}
 
-function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
+function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str) "{{{
   let list = s:keyword_filter(neosnippet#get_snippets(), a:cur_keyword_str)
 
   " Substitute abbr.
@@ -69,7 +69,7 @@ function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
   return list
 endfunction"}}}
 
-function! s:keyword_filter(snippets, cur_keyword_str)"{{{
+function! s:keyword_filter(snippets, cur_keyword_str) "{{{
   " Uniq by real_name.
   let dict = {}
 
@@ -79,6 +79,7 @@ function! s:keyword_filter(snippets, cur_keyword_str)"{{{
   for snippet in list
     " reset refresh flag.
     let snippet.neocomplcache__refresh = 0
+    let snippet.rank = 5
   endfor
 
   if len(a:cur_keyword_str) > 1 && a:cur_keyword_str =~ '^\h\w*$'
@@ -89,6 +90,7 @@ function! s:keyword_filter(snippets, cur_keyword_str)"{{{
     for snippet in partial_list
       " Set refresh flag.
       let snippet.neocomplcache__refresh = 1
+      let snippet.rank = 0
     endfor
 
     let list += partial_list
@@ -110,7 +112,7 @@ function! s:keyword_filter(snippets, cur_keyword_str)"{{{
 endfunction"}}}
 
 
-function! neocomplcache#sources#snippets_complete#define()"{{{
+function! neocomplcache#sources#snippets_complete#define() "{{{
   return s:source
 endfunction"}}}
 
@@ -118,20 +120,20 @@ function! s:compare_words(i1, i2)
   return a:i1.menu - a:i2.menu
 endfunction
 
-function! neocomplcache#sources#snippets_complete#expandable()"{{{
+function! neocomplcache#sources#snippets_complete#expandable() "{{{
   return neosnippet#expandable()
 endfunction"}}}
-function! neocomplcache#sources#snippets_complete#force_expandable()"{{{
+function! neocomplcache#sources#snippets_complete#force_expandable() "{{{
   return neosnippet#expandable()
 endfunction"}}}
-function! neocomplcache#sources#snippets_complete#jumpable()"{{{
+function! neocomplcache#sources#snippets_complete#jumpable() "{{{
   return neosnippet#jumpable()
 endfunction"}}}
 
-function! neocomplcache#sources#snippets_complete#get_snippets()"{{{
+function! neocomplcache#sources#snippets_complete#get_snippets() "{{{
   return neosnippet#get_snippets()
 endfunction"}}}
-function! neocomplcache#sources#snippets_complete#get_snippets_dir()"{{{
+function! neocomplcache#sources#snippets_complete#get_snippets_dir() "{{{
   return neosnippet#get_snippets_directory()
 endfunction"}}}
 

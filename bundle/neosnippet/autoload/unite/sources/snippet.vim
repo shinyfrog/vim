@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: snippet.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 02 Nov 2012.
+" Last Modified: 13 Dec 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -64,7 +64,8 @@ function! s:source.gather_candidates(args, context) "{{{
   let list = []
   for keyword in a:context.source__snippets
     let dict = {
-        \   'word' : printf('%-50s %s', keyword.word, keyword.menu),
+        \   'word' : keyword.word,
+        \   'abbr' : printf('%-50s %s', keyword.word, keyword.menu),
         \   'kind': 'snippet',
         \   'action__complete_word' : keyword.word,
         \   'action__complete_pos' : keyword_pos,
@@ -81,13 +82,13 @@ function! s:source.gather_candidates(args, context) "{{{
   return list
 endfunction "}}}
 
-" Actions"{{{
+" Actions "{{{
 let s:action_table = {}
 
 let s:action_table.expand = {
       \ 'description' : 'expand snippet',
       \ }
-function! s:action_table.expand.func(candidate)"{{{
+function! s:action_table.expand.func(candidate) "{{{
   let cur_text = neosnippet#util#get_cur_text()
   let cur_keyword_str = matchstr(cur_text, '\S\+$')
   let context = unite#get_context()
@@ -101,7 +102,7 @@ let s:action_table.preview = {
       \ 'is_selectable' : 1,
       \ 'is_quit' : 0,
       \ }
-function! s:action_table.preview.func(candidates)"{{{
+function! s:action_table.preview.func(candidates) "{{{
   for snip in a:candidates
     echohl String
     echo snip.action__complete_word
@@ -117,7 +118,7 @@ let s:action_table.unite__new_candidate = {
       \ 'description' : 'add new snippet',
       \ 'is_quit' : 1,
       \ }
-function! s:action_table.unite__new_candidate.func(candidate)"{{{
+function! s:action_table.unite__new_candidate.func(candidate) "{{{
   let trigger = unite#util#input('Please input snippet trigger: ')
   if trigger == ''
     echo 'Canceled.'
@@ -167,11 +168,10 @@ function! unite#sources#snippet#start_complete() "{{{
   endif
 
   return unite#start_complete(['snippet'],
-        \ { 'input': neosnippet#util#get_cur_text(),
-        \   'buffer_name' : 'snippet' })
+        \ { 'input': neosnippet#util#get_cur_text(), 'buffer_name' : '' })
 endfunction "}}}
 
-function! s:get_keyword_pos(cur_text)"{{{
+function! s:get_keyword_pos(cur_text) "{{{
   let cur_keyword_pos = match(a:cur_text, '\S\+$')
   if cur_keyword_pos < 0
     " Empty string.
