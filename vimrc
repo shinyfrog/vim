@@ -88,7 +88,7 @@ set ignorecase     " Ignore case-sensitive
 
 " Fold settings
 set foldmethod=indent " Make folding indent sensitive
-set foldlevel=100 " Don't autofold anything (but I can still fold manually)
+set nofoldenable      " Don't autofold anything (but I can still fold manually)
 
 " Bells management
 set noerrorbells   " 
@@ -323,3 +323,5 @@ endif
 
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+
+

@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: filename_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 24 Nov 2012.
+" Last Modified: 16 Mar 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -30,6 +30,7 @@ set cpo&vim
 let s:source = {
       \ 'name' : 'filename_complete',
       \ 'kind' : 'complfunc',
+      \ 'mark' : '[F]',
       \}
 
 function! s:source.initialize() "{{{
@@ -57,7 +58,8 @@ function! s:source.get_keyword_pos(cur_text) "{{{
         \ neocomplcache#match_word(a:cur_text, pattern)
   if cur_keyword_str =~ '//' ||
         \ (neocomplcache#is_auto_complete() &&
-        \   cur_keyword_str =~# '\*\|\.\.\+$\|/c\%[ygdrive/]$')
+        \    (cur_keyword_str !~ '/' ||
+        \     cur_keyword_str =~# '\*\|\.\.\+$\|/c\%[ygdrive/]$'))
     " Not filename pattern.
     return -1
   endif
@@ -78,8 +80,8 @@ let s:cached_files = {}
 function! s:get_glob_files(cur_keyword_str, path) "{{{
   let path = ',,' . substitute(a:path, '\.\%(,\|$\)\|,,', '', 'g')
 
-  let cur_keyword_str = substitute(a:cur_keyword_str,
-        \ '\\\(.\)', '\1', 'g')
+  let cur_keyword_str = neocomplcache#util#substitute_path_separator(
+        \ substitute(a:cur_keyword_str, '\\\(.\)', '\1', 'g'))
 
   let glob = (cur_keyword_str !~ '\*$')?
         \ cur_keyword_str . '*' : cur_keyword_str
@@ -129,7 +131,7 @@ function! s:get_glob_files(cur_keyword_str, path) "{{{
         \    "word" : fnamemodify(v:val, ":t"),
         \    "orig" : v:val,
         \ }'),
-        \ fnamemodify(a:cur_keyword_str, ':t'))
+        \ fnamemodify(cur_keyword_str, ':t'))
 
   if neocomplcache#is_auto_complete()
         \ && len(files) > g:neocomplcache_max_list
@@ -162,7 +164,6 @@ function! s:get_glob_files(cur_keyword_str, path) "{{{
     call add(isdirectory(dict.word) ?
           \ dir_list : file_list, dict)
 
-    let dict.menu = '[F]'
     let dict.orig = dict.word
 
     if len_env != 0 && dict.word[: len_env-1] == env_ev
