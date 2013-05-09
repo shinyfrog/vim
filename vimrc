@@ -325,3 +325,8 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 
 
+" Mapping recent file to ,f
+map <leader>f :MRU<CR>
+
+" Change the default windows height (default: 8):
+let MRU_Window_Height = 15
