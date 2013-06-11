@@ -4,6 +4,12 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 let g:SuperTabCrMapping = 0
+let g:SuperTabDefaultCompletionType = 'context'
+autocmd FileType *
+  \ if &omnifunc != '' |
+  \   call SuperTabChain(&omnifunc, "<c-p>") |
+  \ endif
+
 
 " Remove the nasty windows endline
 map MM :%s/\r/\r/g
@@ -172,8 +178,6 @@ autocmd BufNewFile *.sh call append(0, "#!/bin/bash")
 au! BufRead,BufNewFile *.mkd   setfiletype mkd
 au! BufRead,BufNewFile *.mk   setfiletype mkd
 
-" SCSS
-au BufRead,BufNewFile *.scss set filetype=scss
 
 " (GUI) Live line reordering 
 nnoremap <silent> <C-A-Up> :move .-2<CR>
@@ -271,58 +275,6 @@ function GuiTabLabel()
 endfunction
 
 set guitablabel=%{GuiTabLabel()}%t
-
-
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = { 'default' : '', }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-
-" Recommended key-mappings.
-" <CR>: insert current completion.
-inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-" <TAB>: move to next completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" auto select first completion entry
-let g:neocomplcache_enable_auto_select = 1
-
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 
 
 " Mapping recent file to ,f
