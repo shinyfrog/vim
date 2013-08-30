@@ -1,18 +1,105 @@
-" Matteo Rattotti vimrc file 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                         Matteo Rattotti vimrc file                          "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                  All plugin are installed with pathogen                     "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-let g:SuperTabCrMapping = 0
-let g:SuperTabDefaultCompletionType = 'context'
-autocmd FileType *
-  \ if &omnifunc != '' |
-  \   call SuperTabChain(&omnifunc, "<c-p>") |
-  \ endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            GENERAL SETTINGS                             "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set nocompatible   " allow breaking vanilla vi compatibility
+
+set ch=2           " Make command line two lines high
+set mousehide      " Hide the mouse when typing text
+
+set showcmd        " show typed command in status bar
+set showmode       " show mode in status bar (insert/replace/...)
+set showmatch      " show matching bracket (briefly jump)
+set number         " Set line number 
+set backspace=2    " allow backspacing over everything in insert mode
+set autoindent     " always set autoindenting on
+set textwidth=0    " Don't wrap words by default
+set wildmenu       " Set enhanced comand menu' completion
+set history=1000   " Vim now will remember 1000 commands
+set autochdir      " automatically switch working path to the edited file
+set scrolloff=2    " Always show at least 2 rows belowe/about the cursor
+set magic          " Magic on
+set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,resize
+
+" Cursor
+set guicursor=a:blinkon0 " no blink cursor
+set cursorline           " highlights the current line
+
+" Backspace and cursor keys wrap to
+set whichwrap+=<,>,h,l
+
+" None of these should be word dividers, so make them not be
+set iskeyword+=_,$,@,%,#
+
+" Search setting
+set hlsearch       " Highlith search result
+set incsearch      " Enable incremental searching by default
+set ignorecase     " Ignore case-sensitive
+set smartcase      " but become case sensitive if you type uppercase characters
+
+" Fold settings
+set foldmethod=indent " Make folding indent sensitive
+set nofoldenable      " Don't autofold anything (but I can still fold manually)
+
+" Split settings
+set splitbelow     " Split windows at bottom
+set splitright     " Split the window on the right
+
+" Bells management
+set noerrorbells   " 
+set visualbell     " 
+set vb t_vb=       " remove the orrible error beep
+
+" status line setting
+set laststatus=2   " Always show the status line 
+set ruler          " show cursor position in status bar
+set statusline=\ \%y\ %t%=\ %l-%c\ [%n]\ %p%\%\ \ 
+
+" Set the TAB behaviour (python programming)
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+" Backup file and swapfiles
+set noswapfile
+set nobackup
+set nowritebackup
+
+" Setting omnicompletion behaviour
+" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+set completeopt=longest,menuone
+
+" Enable detection, plugins and indenting in one step
+filetype plugin indent on
+
+" Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
 
 
-" Remove the nasty windows endline
-map MM :%s/\r/\r/g
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            COLOR THEME AND GUI                          "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Syntax and colorscheme  
 syntax on
@@ -31,161 +118,6 @@ if exists('g:colors_name') && g:colors_name == 'solarized'
         endif
     endif
 endif
-
-" Set map leader
-let mapleader = ","
-let g:mapleader = ","
-
-" remapping ` to '
-nnoremap ' `
-nnoremap ` '
-
-" mapping - to search
-nmap - /
-
-" remove search highlight with ,n
-nmap <silent> <leader>n :silent :nohlsearch<CR>
-
-" showing trailing white space
-set listchars=tab:>-,trail:·,eol:$
-nmap <silent> <leader>s :set nolist!<CR>
-
-" NERDTree hotkey
-map <leader>p :execute 'NERDTreeToggle ' . getcwd()<CR>
-
-" Seriously, guys. It's not like :W is bound to anything anyway.
-command! W :w
-
-"Will allow you to use :w!! to write to a file using sudo 
-cmap w!! %!sudo tee > /dev/null %
-
-""" behaviour settings
-set ch=2           " Make command line two lines high
-set mousehide      " Hide the mouse when typing text
-
-set showcmd        " Show partial command in status bar
-set nocompatible   " allow breaking vanilla vi compatibility
-set showmatch      " Highlight the matches of the last search
-set backspace=2    " allow backspacing over everything in insert mode
-set autoindent     " always set autoindenting on
-set textwidth=0    " Don't wrap words by default
-set cursorline     " I Want to see where i'm!!
-set wildmenu       " Set enhanced comand menu' completion
-set history=1000   " Vim now will remember 1000 commands
-set autochdir      " automatically switch working path to the edited file
-set splitbelow     " Split windows at bottom
-set splitright     " Split the window on the right
-set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,resize
-set scrolloff=1    " Always show at least 1 row belowe/about the cursor
-
-" No blink cursor
-set guicursor=a:blinkon0
-
-"Bbackspace and cursor keys wrap to
-set whichwrap+=<,>,h,l
-
-"Set magic on
-set magic
-
-" Search setting
-set hlsearch       " Highlith search result
-set incsearch      " Enable incremental searching by default
-set ignorecase     " Ignore case-sensitive
-
-" Fold settings
-set foldmethod=indent " Make folding indent sensitive
-set nofoldenable      " Don't autofold anything (but I can still fold manually)
-
-" Bells management
-set noerrorbells   " 
-set visualbell     " 
-set vb t_vb=       " Set visualbell not orrible beep
-
-" status bar setting
-set laststatus=2   " Always show the status line 
-set statusline=\ \%y\ %t%=\ %l-%c\ [%n]\ %p%\%\ \ 
-
-" file type
-filetype on            " enables filetype detection
-filetype plugin on     " enables filetype specific plugins
-filetype indent on
-
-" Set the TAB behaviour (python programming)
-set softtabstop=4
-set shiftwidth=4
-set ruler
-set expandtab
-set number " Set line number 
-
-" Backup file and swapfiles
-set noswapfile
-set nobackup
-set nowritebackup
-
-" % matching also on if, else, ifelse, etc..
-runtime macros/matchit.vim
-
-" Completion
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-" Django SnipMate completion
-autocmd FileType python set ft=python.django " For SnipMate
-autocmd FileType html set ft=htmldjango.html " For SnipMate
-autocmd FileType htmldjango set ft=htmldjango.html " For SnipMate
-
-" Folding 
-autocmd FileType css set foldmethod=manual
-autocmd FileType css map \z zf/-----------------------<CR>
-
-" NERD_tree config
-let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
-let NERDTreeShowBookmarks=1
-let NERDTreeChDirMode=2
-
-" Nerd_commenter config
-let NERDShutUp=1
-
-map <leader>h :call HexHighlight()<CR>
-
-" Setting omnicompletion behaviour
-" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone
-inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
-inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Command-line config
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"Bash like
-cnoremap <C-A>    <Home>
-cnoremap <C-E>    <End>
-cnoremap <C-K>    <C-U>
-
-" PYTHON
-autocmd BufNewFile *.py call append(0, "#!/usr/bin/python")
-" BASH
-autocmd BufNewFile *.sh call append(0, "#!/bin/bash")
-
-" Markdown
-au! BufRead,BufNewFile *.mkd   setfiletype mkd
-au! BufRead,BufNewFile *.mk   setfiletype mkd
-
-
-" (GUI) Live line reordering 
-nnoremap <silent> <C-A-Up> :move .-2<CR>
-nnoremap <silent> <C-A-Down> :move .+1<CR>
-vnoremap <silent> <C-A-Up> :move '<-2<CR>gv
-vnoremap <silent> <C-A-Down> :move '>+1<CR>gv
-inoremap <silent> <C-A-Up> <C-o>:move .-2<CR>
-inoremap <silent> <C-A-Down> <C-o>:move .+1<CR>
 
 " (GUI) Configuration
 if has('gui_running')
@@ -210,6 +142,104 @@ if has('gui_running')
 endif
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            CUSTOM MAPPINGS                              "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Set map leader
+let mapleader = ","
+let g:mapleader = ","
+
+" remapping ` to '
+nnoremap ' `
+nnoremap ` '
+
+" mapping - to search
+nmap - /
+
+" remove search highlight with ,n
+nmap <silent> <leader>n :silent :nohlsearch<CR>
+
+" showing trailing white space
+set listchars=tab:>-,trail:·,eol:$
+nmap <silent> <leader>s :set nolist!<CR>
+
+" NERDTree hotkey
+map <leader>p :execute 'NERDTreeToggle ' . getcwd()<CR>
+
+"Will allow you to use :w!! to write to a file using sudo 
+cmap w!! %!sudo tee > /dev/null %
+
+",v brings up my .vimrc
+",V reloads it -- making all changes active (have to save first)
+map ,v :sp ~/.vimrc<CR><C-W>_
+map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" Remove the nasty windows endline
+map MM :%s/\r/\r/g
+
+" Live line reordering Ctrl + alt + (up|down) will move a line up/down
+nnoremap <silent> <C-A-Up> :move .-2<CR>
+nnoremap <silent> <C-A-Down> :move .+1<CR>
+vnoremap <silent> <C-A-Up> :move '<-2<CR>gv
+vnoremap <silent> <C-A-Down> :move '>+1<CR>gv
+inoremap <silent> <C-A-Up> <C-o>:move .-2<CR>
+inoremap <silent> <C-A-Down> <C-o>:move .+1<CR>
+
+" Bash like movement in command line
+cnoremap <C-A>    <Home>
+cnoremap <C-E>    <End>
+cnoremap <C-K>    <C-U>
+
+" The following beast is something i didn't write... it will return the
+" syntax highlighting group that the current "thing" under the cursor
+" belongs to -- very useful for figuring out what to change as far as
+" syntax highlighting goes.
+"
+" then :highlight show all the current colors
+nmap  ,i :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
+     \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
+     \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+     \ . ">"<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             AUTO COMMANDS                               "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Completion
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+" Django SnipMate completion
+autocmd FileType python set ft=python.django " For SnipMate
+autocmd FileType html set ft=htmldjango.html " For SnipMate
+autocmd FileType htmldjango set ft=htmldjango.html " For SnipMate
+
+" Folding 
+autocmd FileType css set foldmethod=manual
+autocmd FileType css map \z zf/-----------------------<CR>
+
+" PYTHON
+autocmd BufNewFile *.py call append(0, "#!/usr/bin/python")
+" BASH
+autocmd BufNewFile *.sh call append(0, "#!/bin/bash")
+
+" Markdown
+au! BufRead,BufNewFile *.mkd   setfiletype mkd
+au! BufRead,BufNewFile *.mk   setfiletype mkd
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               FUNCTIONS                                 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Show all white Space
 command WSpace call ShowWhiteSpace()
 function ShowWhiteSpace()
@@ -217,12 +247,14 @@ function ShowWhiteSpace()
     match spaceEOL /^\s*\ \s*\|\s\+$/
 endfunction
 
+"
 " Show all white space at EOL
 command WSpaceEOL call ShowWhiteSpaceEOL()
 function ShowWhiteSpaceEOL()
     highlight spaceEOL ctermbg=red guibg=red
     match spaceEOL /\s\+$/
 endfunction
+
 
 fun CssComment(commentString)
     echo a:commentString
@@ -238,25 +270,7 @@ fun CssComment(commentString)
     return completeString    
 endfun
 
-
-",v brings up my .vimrc
-",V reloads it -- making all changes active (have to save first)
-map ,v :sp ~/.vimrc<CR><C-W>_
-map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-
-
-" The following beast is something i didn't write... it will return the
-" syntax highlighting group that the current "thing" under the cursor
-" belongs to -- very useful for figuring out what to change as far as
-" syntax highlighting goes.
-nmap  ,i :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
-     \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
-     \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
-     \ . ">"<CR>
-
-" then :highlight show all the current colors
-
-
+"
 " Function that define what the guitablabel should display
 function GuiTabLabel()
   let label = ''
@@ -277,8 +291,46 @@ endfunction
 set guitablabel=%{GuiTabLabel()}%t
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  PLUGINS                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  NERDtree                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" NERD_tree config
+let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
+let NERDTreeShowBookmarks=1
+let NERDTreeChDirMode=2
+
+" Nerd_commenter config
+let NERDShutUp=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  SuperTab                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:SuperTabCrMapping = 0
+let g:SuperTabDefaultCompletionType = 'context'
+autocmd FileType *
+  \ if &omnifunc != '' |
+  \   call SuperTabChain(&omnifunc, "<c-p>") |
+  \ endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    MRU                                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Mapping recent file to ,f
 map <leader>f :MRU<CR>
-
+"
 " Change the default windows height (default: 8):
 let MRU_Window_Height = 15
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  MATCHIT                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" % matching also on if, else, ifelse, etc..
+runtime macros/matchit.vim
