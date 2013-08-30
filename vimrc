@@ -216,10 +216,6 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
-" Django SnipMate completion
-autocmd FileType python set ft=python.django " For SnipMate
-autocmd FileType html set ft=htmldjango.html " For SnipMate
-autocmd FileType htmldjango set ft=htmldjango.html " For SnipMate
 
 " Folding 
 autocmd FileType css set foldmethod=manual
@@ -334,3 +330,13 @@ let MRU_Window_Height = 15
 
 " % matching also on if, else, ifelse, etc..
 runtime macros/matchit.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 ULTISNIPS                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+autocmd FileType html set ft=htmldjango
