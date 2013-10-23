@@ -24,7 +24,7 @@ set mousehide      " Hide the mouse when typing text
 set showcmd        " show typed command in status bar
 set showmode       " show mode in status bar (insert/replace/...)
 set showmatch      " show matching bracket (briefly jump)
-set number         " Set line number 
+set number         " Set line number
 set backspace=2    " allow backspacing over everything in insert mode
 set autoindent     " always set autoindenting on
 set textwidth=0    " Don't wrap words by default
@@ -60,12 +60,12 @@ set splitbelow     " Split windows at bottom
 set splitright     " Split the window on the right
 
 " Bells management
-set noerrorbells   " 
-set visualbell     " 
+set noerrorbells   "
+set visualbell     "
 set vb t_vb=       " remove the orrible error beep
 
 " status line setting
-set laststatus=2   " Always show the status line 
+set laststatus=2   " Always show the status line
 set ruler          " show cursor position in status bar
 set statusline=\ \%y\ %t%=\ %l-%c\ [%n]\ %p%\%\ \ 
 
@@ -101,7 +101,7 @@ endif
 "                            COLOR THEME AND GUI                          "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Syntax and colorscheme  
+" Syntax and colorscheme
 syntax on
 colorscheme solarized
 set background=dark
@@ -167,7 +167,7 @@ nmap <silent> <leader>s :set nolist!<CR>
 " NERDTree hotkey
 map <leader>p :execute 'NERDTreeToggle ' . getcwd()<CR>
 
-"Will allow you to use :w!! to write to a file using sudo 
+"Will allow you to use :w!! to write to a file using sudo
 cmap w!! %!sudo tee > /dev/null %
 
 ",v brings up my .vimrc
@@ -217,7 +217,7 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
 
-" Folding 
+" Folding
 autocmd FileType css set foldmethod=manual
 autocmd FileType css map \z zf/-----------------------<CR>
 
@@ -225,11 +225,6 @@ autocmd FileType css map \z zf/-----------------------<CR>
 autocmd BufNewFile *.py call append(0, "#!/usr/bin/python")
 " BASH
 autocmd BufNewFile *.sh call append(0, "#!/bin/bash")
-
-" Markdown
-au! BufRead,BufNewFile *.mkd   setfiletype mkd
-au! BufRead,BufNewFile *.mk   setfiletype mkd
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -263,7 +258,7 @@ fun CssComment(commentString)
         let commentLenght = strlen(startingString) + strlen(completeString)
     endwhile
     let completeString = completeString."/"
-    return completeString    
+    return completeString
 endfun
 
 "
@@ -314,16 +309,7 @@ autocmd FileType *
   \   call SuperTabChain(&omnifunc, "<c-p>") |
   \ endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                    MRU                                      "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Mapping recent file to ,f
-map <leader>f :MRU<CR>
 "
-" Change the default windows height (default: 8):
-let MRU_Window_Height = 15
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  MATCHIT                                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -339,4 +325,38 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "bundle/ultisnips-snippets"]
+
 autocmd FileType html set ft=htmldjango
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  AIRLINE                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
+let g:airline#extensions#whitespace#enabled = 0
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   CTRLP                                     "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Mapping recent file to ,f
+map <leader>f :CtrlP<CR>
+map <leader>r ::CtrlPMRU<CR>
+
+let g:ctrlp_working_path_mode = 'ra'
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
