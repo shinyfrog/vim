@@ -1,0 +1,4 @@
+I just realized this today, and figured it may come in handy for others. Sometimes when I'm testing a more complicated regex of things I want to delete, I'll just use the search (/) and build while watching the highlighting to see what's being recognized. Then I hit enter and have to retype it as a substitute command, because :%s/typetypetype doesn't show highlighting while typing, but /typetypetype does.
+It occurred to me today that since // means search for last search again, that s// might mean substitute over the previous search, and that s/// might just delete it. It turns out it does, so now I can just hit /complicatedregexhere, and once it's matching what I want, I just hit enter, then do :%s/// and enter to delete it all.
+
+You can also hit Ctrl+R, / to pull the find buffer into the search command if you want to see it and be able to edit it.
